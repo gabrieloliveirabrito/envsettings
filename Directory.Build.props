@@ -6,4 +6,9 @@
     <LangVersion>latest</LangVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <_VersionFile>$([System.IO.File]::ReadAllText('$(MSBuildThisFileDirectory)VERSION').Trim())</_VersionFile>
+    <Version>$(_VersionFile)</Version>
+  </PropertyGroup>
 </Project>
