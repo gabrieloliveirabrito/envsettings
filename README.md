@@ -13,13 +13,13 @@ It does **not** ship app-specific schemas, database drivers, Redis clients, or c
 Core (no DI dependency):
 
 ```bash
-dotnet add package EnvSettings
+dotnet add package DotSettings
 ```
 
 ASP.NET / `Microsoft.Extensions.DependencyInjection` integration:
 
 ```bash
-dotnet add package EnvSettings.DependencyInjection
+dotnet add package DotSettings.DependencyInjection
 ```
 
 ## Quick start
@@ -54,7 +54,7 @@ Env.Load<AppHostSettings>(new Env.LoadOptions
 var conn = DatabaseSettings.Shared.ConnectionString;
 var again = EnvSettingsCatalog.GetSettings<DatabaseSettings>().ConnectionString;
 
-// Requires EnvSettings.DependencyInjection
+// Requires DotSettings.DependencyInjection
 var services = new ServiceCollection();
 services.AddEnvSettings(); // registers catalog types as singletons
 ```
@@ -97,8 +97,8 @@ Bootstrap messages from this library use `EnvBootstrapLog` / `EnvLogLevel` (plug
 ## Requirements
 
 - .NET 10 (`net10.0`)
-- [DotEnv.Core](https://www.nuget.org/packages/DotEnv.Core) (transitive via `EnvSettings`)
-- [Microsoft.Extensions.DependencyInjection.Abstractions](https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection.Abstractions) (only with `EnvSettings.DependencyInjection`)
+- [DotEnv.Core](https://www.nuget.org/packages/DotEnv.Core) (transitive via `DotSettings`)
+- [Microsoft.Extensions.DependencyInjection.Abstractions](https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection.Abstractions) (only with `DotSettings.DependencyInjection`)
 
 ## Release process
 

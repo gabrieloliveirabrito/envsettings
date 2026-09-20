@@ -10,8 +10,8 @@ on:
         default: all
         options:
           - all
-          - EnvSettings
-          - EnvSettings.DependencyInjection
+          - DotSettings
+          - DotSettings.DependencyInjection
 
 permissions:
   contents: read
@@ -51,10 +51,10 @@ jobs:
               dotnet pack src/EnvSettings/EnvSettings.csproj -c Release -o artifacts --no-restore
               dotnet pack src/EnvSettings.DependencyInjection/EnvSettings.DependencyInjection.csproj -c Release -o artifacts --no-restore
               ;;
-            EnvSettings)
+            DotSettings)
               dotnet pack src/EnvSettings/EnvSettings.csproj -c Release -o artifacts --no-restore
               ;;
-            EnvSettings.DependencyInjection)
+            DotSettings.DependencyInjection)
               dotnet pack src/EnvSettings.DependencyInjection/EnvSettings.DependencyInjection.csproj -c Release -o artifacts --no-restore
               ;;
           esac

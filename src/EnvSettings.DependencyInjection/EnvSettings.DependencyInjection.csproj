@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <RootNamespace>EnvSettings</RootNamespace>
-    <AssemblyName>EnvSettings.DependencyInjection</AssemblyName>
-    <PackageId>EnvSettings.DependencyInjection</PackageId>
-    <Authors>EnvSettings contributors</Authors>
-    <Description>ASP.NET / Microsoft.Extensions.DependencyInjection integration for EnvSettings.</Description>
+    <AssemblyName>DotSettings.DependencyInjection</AssemblyName>
+    <PackageId>DotSettings.DependencyInjection</PackageId>
+    <Authors>DotSettings contributors</Authors>
+    <Description>ASP.NET / Microsoft.Extensions.DependencyInjection integration for DotSettings.</Description>
     <PackageTags>configuration;dotenv;env;settings;dependencyinjection;di</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
