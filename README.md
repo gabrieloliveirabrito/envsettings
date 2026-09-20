@@ -110,7 +110,12 @@ PRs targeting `development` must include exactly one version label:
 | `minor` | `0.1.0` → `0.2.0` |
 | `major` | `0.1.0` → `1.0.0` |
 
-On merge, CI bumps `VERSION` (shared by both NuGet packages). Publishing to NuGet is a manual workflow (`publish-nuget`) restricted to maintainers.
+On merge, CI bumps `VERSION` (shared by both NuGet packages). Publishing to NuGet is a manual workflow (`publish-nuget`) restricted to maintainers, using [Trusted Publishing](https://learn.microsoft.com/en-us/nuget/nuget-org/trusted-publishing) (OIDC) — no long-lived API key.
+
+Setup once:
+
+1. On [nuget.org Trusted Publishing](https://www.nuget.org/account/trustedpublishing), add a policy for owner `gabrieloliveirabrito`, repo `envsettings`, workflow `publish-nuget.yml`, environment `nuget-publish`.
+2. In the GitHub environment `nuget-publish`, set secret `NUGET_USER` to your nuget.org **username** (profile name, not email).
 
 ## License
 
