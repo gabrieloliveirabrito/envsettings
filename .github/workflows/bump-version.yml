@@ -1,0 +1,87 @@
+name: Bump version
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [development]
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  bump:
+    if: >
+      github.event.pull_request.merged == true &&
+      github.event.pull_request.base.ref == 'development' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout development
+        uses: actions/checkout@v4
+        with:
+          ref: development
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Resolve bump level from PR labels
+        id: bump
+        env:
+          LABELS: ${{ join(github.event.pull_request.labels.*.name, ',') }}
+        run: |
+          set -euo pipefail
+          level=""
+          IFS=',' read -ra parts <<< "$LABELS"
+          for label in "${parts[@]}"; do
+            case "$label" in
+              patch|minor|major)
+                if [ -n "$level" ]; then
+                  echo "::error::Multiple version labels found: '$level' and '$label'. Use exactly one of patch, minor, major."
+                  exit 1
+                fi
+                level="$label"
+                ;;
+            esac
+          done
+          if [ -z "$level" ]; then
+            echo "::error::Missing version label. Add exactly one of: patch, minor, major."
+            exit 1
+          fi
+          echo "level=$level" >> "$GITHUB_OUTPUT"
+
+      - name: Bump VERSION
+        id: version
+        run: |
+          set -euo pipefail
+          current="$(tr -d '[:space:]' < VERSION)"
+          IFS='.' read -r major minor patch <<< "$current"
+          case "${{ steps.bump.outputs.level }}" in
+            major)
+              major=$((major + 1))
+              minor=0
+              patch=0
+              ;;
+            minor)
+              minor=$((minor + 1))
+              patch=0
+              ;;
+            patch)
+              patch=$((patch + 1))
+              ;;
+          esac
+          next="${major}.${minor}.${patch}"
+          printf '%s\n' "$next" > VERSION
+          echo "next=$next" >> "$GITHUB_OUTPUT"
+          echo "Bumped $current -> $next (${{ steps.bump.outputs.level }})"
+
+      - name: Commit and push
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add VERSION
+          if git diff --staged --quiet; then
+            echo "No version change to commit."
+            exit 0
+          fi
+          git commit -m "chore: bump version to ${{ steps.version.outputs.next }}"
+          git push origin HEAD:development

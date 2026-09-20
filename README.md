@@ -10,8 +10,16 @@ It does **not** ship app-specific schemas, database drivers, Redis clients, or c
 
 ## Install
 
+Core (no DI dependency):
+
 ```bash
 dotnet add package EnvSettings
+```
+
+ASP.NET / `Microsoft.Extensions.DependencyInjection` integration:
+
+```bash
+dotnet add package EnvSettings.DependencyInjection
 ```
 
 ## Quick start
@@ -46,6 +54,7 @@ Env.Load<AppHostSettings>(new Env.LoadOptions
 var conn = DatabaseSettings.Shared.ConnectionString;
 var again = EnvSettingsCatalog.GetSettings<DatabaseSettings>().ConnectionString;
 
+// Requires EnvSettings.DependencyInjection
 var services = new ServiceCollection();
 services.AddEnvSettings(); // registers catalog types as singletons
 ```
@@ -88,8 +97,20 @@ Bootstrap messages from this library use `EnvBootstrapLog` / `EnvLogLevel` (plug
 ## Requirements
 
 - .NET 10 (`net10.0`)
-- [DotEnv.Core](https://www.nuget.org/packages/DotEnv.Core) (transitive)
-- `Microsoft.Extensions.DependencyInjection.Abstractions` (for `AddEnvSettings`)
+- [DotEnv.Core](https://www.nuget.org/packages/DotEnv.Core) (transitive via `EnvSettings`)
+- [Microsoft.Extensions.DependencyInjection.Abstractions](https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection.Abstractions) (only with `EnvSettings.DependencyInjection`)
+
+## Release process
+
+PRs targeting `development` must include exactly one version label:
+
+| Label | Bump |
+|-------|------|
+| `patch` | `0.1.0` → `0.1.1` |
+| `minor` | `0.1.0` → `0.2.0` |
+| `major` | `0.1.0` → `1.0.0` |
+
+On merge, CI bumps `VERSION` (shared by both NuGet packages). Publishing to NuGet is a manual workflow (`publish-nuget`) restricted to maintainers.
 
 ## License
 

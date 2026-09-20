@@ -1,0 +1,85 @@
+name: Publish NuGet
+
+on:
+  workflow_dispatch:
+    inputs:
+      packages:
+        description: Which packages to publish
+        required: true
+        type: choice
+        default: all
+        options:
+          - all
+          - EnvSettings
+          - EnvSettings.DependencyInjection
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    if: github.actor == github.repository_owner
+    runs-on: ubuntu-latest
+    environment: nuget-publish
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Read version
+        id: version
+        run: |
+          set -euo pipefail
+          version="$(tr -d '[:space:]' < VERSION)"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "Publishing version $version"
+
+      - name: Restore
+        run: dotnet restore EnvSettings.slnx
+
+      - name: Pack
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts
+          case "${{ inputs.packages }}" in
+            all)
+              dotnet pack src/EnvSettings/EnvSettings.csproj -c Release -o artifacts --no-restore
+              dotnet pack src/EnvSettings.DependencyInjection/EnvSettings.DependencyInjection.csproj -c Release -o artifacts --no-restore
+              ;;
+            EnvSettings)
+              dotnet pack src/EnvSettings/EnvSettings.csproj -c Release -o artifacts --no-restore
+              ;;
+            EnvSettings.DependencyInjection)
+              dotnet pack src/EnvSettings.DependencyInjection/EnvSettings.DependencyInjection.csproj -c Release -o artifacts --no-restore
+              ;;
+          esac
+
+      - name: Push to NuGet
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: |
+          set -euo pipefail
+          if [ -z "${NUGET_API_KEY:-}" ]; then
+            echo "::error::Secret NUGET_API_KEY is not set on environment nuget-publish."
+            exit 1
+          fi
+          shopt -s nullglob
+          packages=(artifacts/*.nupkg)
+          if [ ${#packages[@]} -eq 0 ]; then
+            echo "::error::No nupkg files found in artifacts/."
+            exit 1
+          fi
+          for pkg in "${packages[@]}"; do
+            case "$pkg" in
+              *.symbols.nupkg) continue ;;
+            esac
+            echo "Pushing $pkg"
+            dotnet nuget push "$pkg" \
+              --api-key "$NUGET_API_KEY" \
+              --source https://api.nuget.org/v3/index.json \
+              --skip-duplicate
+          done

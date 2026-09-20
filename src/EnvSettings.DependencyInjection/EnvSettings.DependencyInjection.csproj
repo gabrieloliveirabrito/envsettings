@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <RootNamespace>EnvSettings</RootNamespace>
-    <AssemblyName>EnvSettings</AssemblyName>
-    <PackageId>EnvSettings</PackageId>
+    <AssemblyName>EnvSettings.DependencyInjection</AssemblyName>
+    <PackageId>EnvSettings.DependencyInjection</PackageId>
     <Authors>EnvSettings contributors</Authors>
-    <Description>Typed application settings bound from .env files and process environment variables.</Description>
-    <PackageTags>configuration;dotenv;env;settings;environment</PackageTags>
+    <Description>ASP.NET / Microsoft.Extensions.DependencyInjection integration for EnvSettings.</Description>
+    <PackageTags>configuration;dotenv;env;settings;dependencyinjection;di</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>icon.png</PackageIcon>
@@ -23,11 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="EnvSettings.Tests" />
+    <ProjectReference Include="..\EnvSettings\EnvSettings.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotEnv.Core" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" />
   </ItemGroup>
 
 </Project>
