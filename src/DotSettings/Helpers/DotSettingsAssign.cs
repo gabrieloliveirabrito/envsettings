@@ -1,13 +1,13 @@
 using System.Reflection;
 
-namespace EnvSettings;
+namespace DotSettings;
 
-/// <summary>Reflection helper para assign de <see cref="EnvSettings{TSelf}.Shared"/>.</summary>
-internal static class EnvSettingsAssign
+/// <summary>Reflection helper para assign de <see cref="DotSettings{TSelf}.Shared"/>.</summary>
+internal static class DotSettingsAssign
 {
     public static void AssignShared(Type concreteType, object instance)
     {
-        var envBase = FindEnvSettingsBase(concreteType);
+        var envBase = FindDotSettingsBase(concreteType);
         if (envBase is null)
         {
             return;
@@ -25,7 +25,7 @@ internal static class EnvSettingsAssign
 
     public static void ClearShared(Type concreteType)
     {
-        var envBase = FindEnvSettingsBase(concreteType);
+        var envBase = FindDotSettingsBase(concreteType);
         if (envBase is null)
         {
             return;
@@ -35,12 +35,12 @@ internal static class EnvSettingsAssign
         method?.Invoke(null, null);
     }
 
-    private static Type? FindEnvSettingsBase(Type concreteType)
+    private static Type? FindDotSettingsBase(Type concreteType)
     {
         var current = concreteType;
         while (current is not null)
         {
-            if (current.IsGenericType && current.GetGenericTypeDefinition() == typeof(EnvSettings<>))
+            if (current.IsGenericType && current.GetGenericTypeDefinition() == typeof(DotSettings<>))
             {
                 return current;
             }

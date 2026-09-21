@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
 
-namespace EnvSettings;
+namespace DotSettings;
 
 /// <summary>Parseia <c>LOG_LEVELS</c> no formato <c>Key:Warning;Other:Info</c>.</summary>
 public static class LogLevelsParser

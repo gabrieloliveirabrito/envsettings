@@ -1,4 +1,4 @@
-namespace EnvSettings;
+namespace DotSettings;
 
 /// <summary>
 /// Mapeia a propriedade para uma chave do .env. Apenas propriedades anotadas são ligadas.

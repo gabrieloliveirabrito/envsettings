@@ -1,11 +1,11 @@
-using EnvSettings;
+using DotSettings;
 using Xunit;
 
-namespace EnvSettingsTests;
+namespace DotSettingsTests;
 
 public sealed class EnvConfigurationBinderTests
 {
-    private sealed class SampleSettings : EnvSettings<SampleSettings>
+    private sealed class SampleSettings : DotSettings<SampleSettings>
     {
         [EnvKey("REQUIRED_KEY")]
         public string Required { get; set; } = "default";
@@ -19,7 +19,7 @@ public sealed class EnvConfigurationBinderTests
         public string Ignored { get; set; } = "stay";
     }
 
-    private sealed class SampleHost : EnvSettings<SampleHost>
+    private sealed class SampleHost : DotSettings<SampleHost>
     {
         [EnvSubConfiguration]
         public SampleSettings SampleSettings { get; set; } = new();
@@ -98,7 +98,7 @@ public sealed class EnvConfigurationBinderTests
         {
             Env.Load<SampleHost>();
             Assert.Equal("shared-ok", SampleSettings.Shared.Required);
-            Assert.Same(SampleSettings.Shared, EnvSettingsCatalog.GetSettings<SampleSettings>());
+            Assert.Same(SampleSettings.Shared, DotSettingsCatalog.GetSettings<SampleSettings>());
             Assert.Same(SampleSettings.Shared, SampleHost.Shared.SampleSettings);
         }
         finally

@@ -1,4 +1,4 @@
-namespace EnvSettings;
+namespace DotSettings;
 
 /// <summary>
 /// Resolve valores: mapa do arquivo .env (não vazio) e fallback para <see cref="Environment"/>.

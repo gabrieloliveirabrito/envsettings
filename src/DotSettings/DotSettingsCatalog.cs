@@ -1,11 +1,11 @@
 using System.Collections.Concurrent;
 
-namespace EnvSettings;
+namespace DotSettings;
 
 /// <summary>
 /// Catálogo thread-safe das instâncias de settings carregadas.
 /// </summary>
-public static class EnvSettingsCatalog
+public static class DotSettingsCatalog
 {
     private static readonly ConcurrentDictionary<Type, object> ByType = new();
 
@@ -42,7 +42,7 @@ public static class EnvSettingsCatalog
         ArgumentNullException.ThrowIfNull(instance);
         var type = instance.GetType();
         ByType[type] = instance;
-        EnvSettingsAssign.AssignShared(type, instance);
+        DotSettingsAssign.AssignShared(type, instance);
     }
 
     internal static void Clear()

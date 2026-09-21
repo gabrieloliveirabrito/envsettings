@@ -1,4 +1,4 @@
-namespace EnvSettings;
+namespace DotSettings;
 
 /// <summary>
 /// Sink pluggable para logs do bootstrap/refresh de env (sem ILogger).

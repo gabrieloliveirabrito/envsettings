@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace EnvSettings;
+namespace DotSettings;
 
 /// <summary>Resolve o nome da variável de ambiente a partir de <see cref="EnvKeyAttribute"/>.</summary>
 public static class EnvKeyHelper

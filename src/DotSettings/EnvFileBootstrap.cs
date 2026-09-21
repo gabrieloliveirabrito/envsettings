@@ -1,6 +1,6 @@
 using DotEnv.Core;
 
-namespace EnvSettings;
+namespace DotSettings;
 
 /// <summary>
 /// Localiza e carrega o arquivo .env (DotEnv.Core). Em container usa apenas o ambiente do processo.

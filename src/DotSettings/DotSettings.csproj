@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <RootNamespace>EnvSettings</RootNamespace>
-    <AssemblyName>EnvSettings</AssemblyName>
-    <PackageId>EnvSettings</PackageId>
-    <Authors>EnvSettings contributors</Authors>
+    <RootNamespace>DotSettings</RootNamespace>
+    <AssemblyName>DotSettings</AssemblyName>
+    <PackageId>DotSettings</PackageId>
+    <Authors>DotSettings contributors</Authors>
     <Description>Typed application settings bound from .env files and process environment variables.</Description>
     <PackageTags>configuration;dotenv;env;settings;environment</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="EnvSettings.Tests" />
+    <InternalsVisibleTo Include="DotSettings.Tests" />
   </ItemGroup>
 
   <ItemGroup>

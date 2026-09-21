@@ -1,10 +1,10 @@
-namespace EnvSettings;
+namespace DotSettings;
 
 /// <summary>
-/// Base CRTP: cada settings herda <c>EnvSettings&lt;TSelf&gt;</c> e expõe <see cref="Shared"/>.
+/// Base CRTP: cada settings herda <c>DotSettings&lt;TSelf&gt;</c> e expõe <see cref="Shared"/>.
 /// </summary>
-public abstract class EnvSettings<TSelf>
-    where TSelf : EnvSettings<TSelf>, new()
+public abstract class DotSettings<TSelf>
+    where TSelf : DotSettings<TSelf>, new()
 {
     private static TSelf? _shared;
 

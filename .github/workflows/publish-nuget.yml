@@ -10,8 +10,8 @@ on:
         default: all
         options:
           - all
-          - EnvSettings
-          - EnvSettings.DependencyInjection
+          - DotSettings
+          - DotSettings.DependencyInjection
 
 permissions:
   contents: read
@@ -40,7 +40,7 @@ jobs:
           echo "Publishing version $version"
 
       - name: Restore
-        run: dotnet restore EnvSettings.slnx
+        run: dotnet restore DotSettings.slnx
 
       - name: Pack
         run: |
@@ -48,14 +48,14 @@ jobs:
           mkdir -p artifacts
           case "${{ inputs.packages }}" in
             all)
-              dotnet pack src/EnvSettings/EnvSettings.csproj -c Release -o artifacts --no-restore
-              dotnet pack src/EnvSettings.DependencyInjection/EnvSettings.DependencyInjection.csproj -c Release -o artifacts --no-restore
+              dotnet pack src/DotSettings/DotSettings.csproj -c Release -o artifacts --no-restore
+              dotnet pack src/DotSettings.DependencyInjection/DotSettings.DependencyInjection.csproj -c Release -o artifacts --no-restore
               ;;
-            EnvSettings)
-              dotnet pack src/EnvSettings/EnvSettings.csproj -c Release -o artifacts --no-restore
+            DotSettings)
+              dotnet pack src/DotSettings/DotSettings.csproj -c Release -o artifacts --no-restore
               ;;
-            EnvSettings.DependencyInjection)
-              dotnet pack src/EnvSettings.DependencyInjection/EnvSettings.DependencyInjection.csproj -c Release -o artifacts --no-restore
+            DotSettings.DependencyInjection)
+              dotnet pack src/DotSettings.DependencyInjection/DotSettings.DependencyInjection.csproj -c Release -o artifacts --no-restore
               ;;
           esac
 

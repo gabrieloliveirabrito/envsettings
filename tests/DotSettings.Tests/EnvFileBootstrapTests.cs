@@ -1,7 +1,7 @@
-using EnvSettings;
+using DotSettings;
 using Xunit;
 
-namespace EnvSettingsTests;
+namespace DotSettingsTests;
 
 public sealed class EnvFileBootstrapTests
 {

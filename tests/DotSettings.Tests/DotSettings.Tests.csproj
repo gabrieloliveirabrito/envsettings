@@ -3,7 +3,7 @@
   <PropertyGroup>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <RootNamespace>EnvSettingsTests</RootNamespace>
+    <RootNamespace>DotSettingsTests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\EnvSettings\EnvSettings.csproj" />
+    <ProjectReference Include="..\..\src\DotSettings\DotSettings.csproj" />
   </ItemGroup>
 
 </Project>
