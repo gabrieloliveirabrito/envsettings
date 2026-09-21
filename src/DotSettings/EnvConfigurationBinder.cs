@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Reflection;
 
-namespace EnvSettings;
+namespace DotSettings;
 
 /// <summary>
 /// Liga classes de configuração ao <see cref="EnvValueSource"/> via reflection,
@@ -20,7 +20,7 @@ public static class EnvConfigurationBinder
         var type = target.GetType();
         if (registerInstances)
         {
-            EnvSettingsCatalog.Register(target);
+            DotSettingsCatalog.Register(target);
         }
 
         foreach (var property in type.GetProperties(BindingFlags.Public | BindingFlags.Instance))

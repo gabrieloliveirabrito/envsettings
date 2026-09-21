@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace EnvSettings;
+namespace DotSettings;
 
 /// <summary>
 /// API estática de load/refresh do grafo de settings (thread-safe).
@@ -57,8 +57,8 @@ public static class Env
                 EnvBootstrapLog.Write(
                     EnvLogLevel.Information,
                     envFilePath is null
-                        ? "EnvSettings: loading from process Environment only (no .env file)."
-                        : $"EnvSettings: loading from .env at '{envFilePath}'.");
+                        ? "DotSettings: loading from process Environment only (no .env file)."
+                        : $"DotSettings: loading from .env at '{envFilePath}'.");
             }
 
             var fileMap = EnvFileBootstrap.LoadFileMap(envFilePath);
@@ -81,10 +81,10 @@ public static class Env
 
             if (options.LogToConsole)
             {
-                var count = EnvSettingsCatalog.Snapshot().Count;
+                var count = DotSettingsCatalog.Snapshot().Count;
                 EnvBootstrapLog.Write(
                     EnvLogLevel.Information,
-                    $"EnvSettings: bound {count} settings type(s) successfully.");
+                    $"DotSettings: bound {count} settings type(s) successfully.");
             }
 
             return host;
@@ -129,14 +129,14 @@ public static class Env
                 _state.EnvFilePath = envFilePath;
                 _state.ValueSource = source;
 
-                EnvBootstrapLog.Write(EnvLogLevel.Information, "EnvSettings: refresh applied successfully.");
+                EnvBootstrapLog.Write(EnvLogLevel.Information, "DotSettings: refresh applied successfully.");
                 return true;
             }
             catch (Exception ex)
             {
                 EnvBootstrapLog.Write(
                     EnvLogLevel.Error,
-                    $"EnvSettings: refresh aborted; shared settings unchanged. {ex}");
+                    $"DotSettings: refresh aborted; shared settings unchanged. {ex}");
                 return false;
             }
         }
@@ -147,12 +147,12 @@ public static class Env
     {
         lock (Gate)
         {
-            foreach (var type in EnvSettingsCatalog.Snapshot().Keys)
+            foreach (var type in DotSettingsCatalog.Snapshot().Keys)
             {
-                EnvSettingsAssign.ClearShared(type);
+                DotSettingsAssign.ClearShared(type);
             }
 
-            EnvSettingsCatalog.Clear();
+            DotSettingsCatalog.Clear();
             _state = null;
         }
     }
@@ -188,18 +188,18 @@ public static class Env
 
     private static void ResetForTestingUnlocked()
     {
-        foreach (var type in EnvSettingsCatalog.Snapshot().Keys)
+        foreach (var type in DotSettingsCatalog.Snapshot().Keys)
         {
-            EnvSettingsAssign.ClearShared(type);
+            DotSettingsAssign.ClearShared(type);
         }
 
-        EnvSettingsCatalog.Clear();
+        DotSettingsCatalog.Clear();
         _state = null;
     }
 
     private static void RegisterTree(object node)
     {
-        EnvSettingsCatalog.Register(node);
+        DotSettingsCatalog.Register(node);
         foreach (var property in node.GetType().GetProperties(
                      BindingFlags.Public | BindingFlags.Instance))
         {

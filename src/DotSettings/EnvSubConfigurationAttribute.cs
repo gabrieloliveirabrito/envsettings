@@ -1,4 +1,4 @@
-namespace EnvSettings;
+namespace DotSettings;
 
 /// <summary>
 /// Marca uma propriedade aninhada de configuração. Só estas propriedades entram na recursão do binder.

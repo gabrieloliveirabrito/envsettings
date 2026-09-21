@@ -1,4 +1,4 @@
-namespace EnvSettings;
+namespace DotSettings;
 
 /// <summary>
 /// Níveis apenas do <see cref="EnvBootstrapLog"/> (bootstrap desta biblioteca).

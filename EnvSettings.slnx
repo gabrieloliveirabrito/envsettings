@@ -1,9 +1,0 @@
-<Solution>
-  <Folder Name="/src/">
-    <Project Path="src/EnvSettings/EnvSettings.csproj" />
-    <Project Path="src/EnvSettings.DependencyInjection/EnvSettings.DependencyInjection.csproj" />
-  </Folder>
-  <Folder Name="/tests/">
-    <Project Path="tests/EnvSettings.Tests/EnvSettings.Tests.csproj" />
-  </Folder>
-</Solution>

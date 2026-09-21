@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <RootNamespace>EnvSettings</RootNamespace>
+    <RootNamespace>DotSettings</RootNamespace>
     <AssemblyName>DotSettings</AssemblyName>
     <PackageId>DotSettings</PackageId>
     <Authors>DotSettings contributors</Authors>
@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="EnvSettings.Tests" />
+    <InternalsVisibleTo Include="DotSettings.Tests" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,4 @@
-namespace EnvSettings;
+namespace DotSettings;
 
 /// <summary>
 /// Níveis de override de logging da aplicação (ex.: chave <c>LOG_LEVELS</c>),

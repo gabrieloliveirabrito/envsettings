@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <RootNamespace>EnvSettings</RootNamespace>
+    <RootNamespace>DotSettings</RootNamespace>
     <AssemblyName>DotSettings.DependencyInjection</AssemblyName>
     <PackageId>DotSettings.DependencyInjection</PackageId>
     <Authors>DotSettings contributors</Authors>
@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EnvSettings\EnvSettings.csproj" />
+    <ProjectReference Include="..\DotSettings\DotSettings.csproj" />
   </ItemGroup>
 
   <ItemGroup>

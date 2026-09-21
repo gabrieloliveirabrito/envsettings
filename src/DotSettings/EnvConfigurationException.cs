@@ -1,4 +1,4 @@
-namespace EnvSettings;
+namespace DotSettings;
 
 /// <summary>
 /// Falha ao carregar ou converter variável de ambiente obrigatória.

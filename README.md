@@ -1,10 +1,10 @@
-![EnvSettings](assets/readme-banner.png)
+![DotSettings](assets/readme-banner.png)
 
-# EnvSettings
+# DotSettings
 
 Typed application settings bound from `.env` files and process environment variables.
 
-EnvSettings is a small .NET library: you declare settings classes with `[EnvKey]` / `[EnvSubConfiguration]`, call `Env.Load<THost>()`, and get validated instances in a catalog, via `.Shared`, and optionally as DI singletons.
+DotSettings is a small .NET library: you declare settings classes with `[EnvKey]` / `[EnvSubConfiguration]`, call `Env.Load<THost>()`, and get validated instances in a catalog, via `.Shared`, and optionally as DI singletons.
 
 It does **not** ship app-specific schemas, database drivers, Redis clients, or connection-string converters. Your application owns those.
 
@@ -25,10 +25,10 @@ dotnet add package DotSettings.DependencyInjection
 ## Quick start
 
 ```csharp
-using EnvSettings;
+using DotSettings;
 using Microsoft.Extensions.DependencyInjection;
 
-public sealed class DatabaseSettings : EnvSettings<DatabaseSettings>
+public sealed class DatabaseSettings : DotSettings<DatabaseSettings>
 {
     [EnvKey("DATABASE_URL")]
     public string ConnectionString { get; set; } = "";
@@ -52,11 +52,11 @@ Env.Load<AppHostSettings>(new Env.LoadOptions
 
 // Same instance everywhere:
 var conn = DatabaseSettings.Shared.ConnectionString;
-var again = EnvSettingsCatalog.GetSettings<DatabaseSettings>().ConnectionString;
+var again = DotSettingsCatalog.GetSettings<DatabaseSettings>().ConnectionString;
 
 // Requires DotSettings.DependencyInjection
 var services = new ServiceCollection();
-services.AddEnvSettings(); // registers catalog types as singletons
+services.AddDotSettings(); // registers catalog types as singletons
 ```
 
 ### Rules of thumb
@@ -82,7 +82,7 @@ Env.LoadPrepared(host); // register instances without reading files
 
 ## How values are resolved
 
-1. If `RootPath` is set, EnvSettings searches up the directory tree for a `.env` file (optional `.env.tunnel` alongside it).
+1. If `RootPath` is set, DotSettings searches up the directory tree for a `.env` file (optional `.env.tunnel` alongside it).
 2. Inside containers (`DOTNET_RUNNING_IN_CONTAINER=true`), only the process environment is used.
 3. For each key: non-empty value from the file map wins; otherwise the process environment; otherwise the key is missing.
 
