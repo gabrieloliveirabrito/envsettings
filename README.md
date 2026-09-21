@@ -1,4 +1,4 @@
-![DotSettings](assets/readme-banner.png)
+![DotSettings](https://raw.githubusercontent.com/gabrieloliveirabrito/envsettings/main/assets/readme-banner.png)
 
 # DotSettings
 
